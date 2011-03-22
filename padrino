@@ -17,6 +17,8 @@ _padrino(){
   current_arg="${COMP_WORDS[COMP_CWORD]}"
   subcommands=""
 
+  # This directory used to cache slow requests
+  #  like "padrino rake -T" and "padrino g plugin --list"
   config_dir="${XDG_CONFIG_HOME}/padrino"
   # Create ~/.config/padrino directory if not exists
   if [ ! -d "${config_dir}" ] ; then
