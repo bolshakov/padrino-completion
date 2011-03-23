@@ -19,10 +19,10 @@ _padrino(){
 
   # This directory used to cache slow requests
   #  like "padrino rake -T" and "padrino g plugin --list"
-  config_dir="${XDG_CONFIG_HOME}/padrino"
+  config_dir="$XDG_CONFIG_HOME/padrino"
   # Create ~/.config/padrino directory if not exists
-  if [ ! -d "${config_dir}" ] ; then
-    mkdir "${config_dir}"
+  if [ ! -d $config_dir ] ; then
+    mkdir $config_dir
   fi
 
   case $COMP_CWORD in
@@ -49,7 +49,7 @@ _padrino(){
           # padrino rake -T works too slow. So we need some kind of caching
           project_dir=`pwd`
           # Remove "/" form path
-          completion_cache="${config_dir}/${project_dir//\//_}"
+          completion_cache="$config_dir/${project_dir//\//_}"
           if [ -a $completion_cache ] ; then
             # Reading tasks list from file
             subcommands=`cat $completion_cache`
@@ -59,7 +59,7 @@ _padrino(){
             # cut -d"[" -f1 -- remove [app], [query], etc.
             subcommands=`padrino rake -T|grep "rake "|cut -d" " -f2|cut -d"[" -f1`
             # If rake tasks exists
-            if [ ! -z $subcommands ] ; then
+            if [ "$subcommands" ] ; then
               echo $subcommands > $completion_cache
             fi
           fi ;;
@@ -90,7 +90,7 @@ _padrino(){
           # Examples:
           #  - padrino g plugin coffee
           #  - padrino g plugin 360
-          completion_cache="${config_dir}/plugins"
+          completion_cache="$config_dir/plugins"
           # Plugins list may be updated, so there is no need to cache it forever
           # If completion_cache modified less then 5 days ago
           if [ -e $completion_cache ] && [ ! `find "$completion_cache" -mmin +7200` ] ; then
@@ -115,7 +115,7 @@ _padrino(){
       esac ;;
   esac
 
-  COMPREPLY=( $(compgen -W "${subcommands}" -- "${current_arg}") )
+  COMPREPLY=( $(compgen -W "$subcommands" -- "$current_arg") )
   return 0
 }
 complete -F _padrino padrino
