@@ -50,7 +50,7 @@ _padrino(){
           project_dir=`pwd`
           # Remove "/" form path
           completion_cache="$config_dir/${project_dir//\//_}"
-          if [ -a $completion_cache ] ; then
+          if [ -r $completion_cache ] ; then
             # Reading tasks list from file
             subcommands=`cat $completion_cache`
           else
@@ -93,7 +93,7 @@ _padrino(){
           completion_cache="$config_dir/plugins"
           # Plugins list may be updated, so there is no need to cache it forever
           # If completion_cache modified less then 5 days ago
-          if [ -e $completion_cache ] && [ ! `find "$completion_cache" -mmin +7200` ] ; then
+          if [ -r $completion_cache ] && [ ! `find "$completion_cache" -mmin +7200` ] ; then
             subcommands=`cat $completion_cache`
           else
             subcommands=`padrino g plugin --list|grep "\- \["|cut -d'"' -f2`
