@@ -44,7 +44,7 @@ _padrino(){
       # If previous command was
       case "${COMP_WORDS[$COMP_CWORD-1]}" in
         "g" | "gen" | "generate" )
-          subcommands="project plugin controller model migration mailer admin" ;;
+          subcommands="project plugin controller model migration mailer admin admin_page" ;;
         "rake" )
           # padrino rake -T works too slow. So we need some kind of caching
           project_dir=`pwd`
@@ -112,6 +112,9 @@ _padrino(){
           if [ "${COMP_WORDS[$COMP_CWORD-1]}" == "--theme" ] ; then
               subcommands=$admin_themes
           fi ;;
+       "admin_page" )
+          # Extract models
+          subcommands=`ls app/models/| cut -d"." -f1` ;;
       esac ;;
   esac
 
