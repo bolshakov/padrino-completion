@@ -50,6 +50,8 @@ _padrino(){
       #
       # If previous command was
       case "${COMP_WORDS[$COMP_CWORD-1]}" in
+        "start" )
+          subcommands="--server --host --port --daemonize --pid --debug --chdir --environment --help" ;;
         "g" | "gen" | "generate" )
           subcommands="project plugin controller model migration mailer admin admin_page" ;;
         "rake" )
